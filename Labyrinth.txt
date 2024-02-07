@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+pair<int, vector<char>> solve(vector<vector<char>> &map, int i, int j, int previ, int prevj){
+if(map[i][j]=='B') {
+vectro<char> a;
+return{0,a};}
+
+int dx[4]={-1,1,0,0};
+int dy[4]={0,0,-1,1};
+char dr[4]={'L','R','U','D'};
+vector<int> cnt(4,1e9);
+vector<vector<char>> path(4);
+for(int k=0; k<4; k++){
+if(i+dx[k]>0|| j+dy[k]>0|| i+dx[k]<map.size() || j+dy[k]<map[0].size() || !(i+dx[k]==previ &&j +dy[k]==prevj) map[i+dx[k]][i+dy[k]]=='.'){
+if(map[i+dx[k]][j+dy[k]]=='.'){
+cnt[i]=1+(solve(map,i+dx[k],j+dy[k],i,j)).first;
+
+}
+}
+}
+
+
+
+
+
+
+
+}
+int main(){
+    int n, m; cin>>n>>m;
+        vector<vector<char>> map(n, vector<char>(m));
+int start_i,start_j;
+for(int i=0; i<n;i++){
+for(int j=0; j<m; j++){
+cin>>map[i][j];
+if(map[i][j]=='A') {start_i=i; start_j=j;}
+}}
+
+solve(map, start_i, start_j, -1, -1);
+
+}

@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+int solve(vector<vector<long long>> &timing, int index, int n, int prev, vector<vector<long long>> &dp){
+if(index==n) return 0;
+if(dp[index][prev+1]!=-1) return dp[index][prev+1];
+
+long long exc=solve(timing, index+1, n, prev, dp);
+long long inc=0;
+if(prev==-1 || timing[prev][0]<timing[index][1]) inc=timing[index][2]+solve(timing, index+1,n, index,dp);
+return dp[index][prev+1]=max(inc,exc); 
+}
+int main(){
+    int n; cin>>n;
+vector<vector<long long>> timing(n,vector<long long>(3));
+for(int i=0;i<n;i++){cin>>timing[i][1]>>timing[i][0]>>timing[i][2];}
+sort(timing.begin(),timing.end());
+vector<vector<long long>> dp(n+1, vector<long long>(n+1,-1));
+
+long long ans=solve(timing,0,n,-1,dp);
+cout<<ans;
+return 0;
+}

@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+using namespace std;
+ 
+int solve(vector<int> &prices, vector<int> &pages, int x, int n, vector<vector<int>> &dp){
+if(x<=0 || n<0) return 0;
+if(dp[x][n]!=-1) return dp[x][n];
+int ans1=solve(prices,pages,x,n-1,dp);
+int ans2=0;
+if(  x>=prices[n]) ans2=pages[n]+solve(prices,pages,x-prices[n],n-1,dp);
+return dp[x][n]=max(ans1,ans2);
+ 
+}
+int main(){
+    int n,x; cin>>n>>x;
+ 
+vector<int>prices(n);
+vector<int> pages(n);
+for(int i=0; i<n; i++) cin>>prices[i];
+for(int i=0; i<n; i++) cin>>pages[i];
+vector<int> dp(x+1, 0);
+for(int sum=1; sum<=x; sum++){
+int ans1=dp[sum];
+int ans2=0;
+for(int index=1; index<=n; index++){
+
+if(  sum>=prices[index-1]) ans2=max(ans2,pages[index-1]+  dp[sum-prices[index-1]]);
+
+}
+dp[sum]=max(ans1,ans2);
+}
+
+cout<<dp[x];
+
+//cout<<solve(prices,pages,x,n,dp);
+}

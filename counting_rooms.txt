@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void solve(vector<vector<char>> &map, int i, int j){
+if(i<0 || j<0||i>=map.size() || j>=map[0].size()) return;
+
+if(map[i][j]!='.') return;
+else{
+map[i][j]='#';
+solve(map,i+1,j);
+solve(map,i-1,j);
+solve(map,i,j+1);
+solve(map,i,j-1);
+
+}
+}
+int main(){
+    int n,m; cin>>n>>m;
+        vector<vector<char>> map(n, vector<char>(m));
+for(int i=0; i<n; i++){
+for(int j=0; j<m; j++){
+cin>>map[i][j];}}
+int room=0;
+
+for(int i=0; i<n; i++){
+for(int j=0; j<m; j++){
+if(map[i][j]=='.'){
+room++;
+solve(map,i,j);}
+
+}}
+cout<<room;
+return 0;
+}

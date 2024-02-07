@@ -1,0 +1,18 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n;
+cin>>n;
+
+long long maxi=INT_MIN;
+long long sum=0;
+while(n--){
+int a; cin>>a;
+sum+=a;
+maxi=max(sum,maxi);
+if(sum<0) sum=0;
+
+}
+cout<<maxi;
+}

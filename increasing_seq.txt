@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+int solve(vector<int> &a, int index, int n, int prev, vector<vector<int>> &dp ){
+if(index==n) return 0;
+if(dp[index][prev+1]!=-1) return dp[index][prev+1];
+int exclude=solve(a, index+1, n, prev, dp);
+int include=0;
+if(prev==-1 || a[index]>a[prev]) include=1+solve(a,index+1, n,index, dp);
+return dp[index][prev+1]=max(include,exclude);
+
+
+}
+int main(){
+    int n; cin>>n;
+vector<int>a(n);
+for(int i=0; i<n; i++) cin>>a[i];
+
+ vector<vector<int>> dp(n+1, vector<int>(n+1,0));
+for(int index=n-1; index>=0; index--){
+for(int prev=n-1; prev>=-1; prev--){
+
+
+int exclude=dp[index+1][prev+1];
+int include=0;
+if(prev==-1|| a[index]>a[prev-1]) include=1+dp[index+1][index+1];
+dp[index][prev+1]=max(include,exclude);
+}
+}
+
+
+cout<<dp[0][0];
+
+}

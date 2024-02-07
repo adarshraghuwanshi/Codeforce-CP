@@ -1,0 +1,40 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    vector<pair<int, int>> movies;
+
+    for (int i = 0; i < n; ++i) {
+        int start, end;
+        cin >> start >> end;
+        movies.push_back({end, start}); // Store as (ending time, starting time)
+    }
+
+    // Sort the movies by ending time in ascending order
+    sort(movies.begin(), movies.end());
+
+    // Initialize variables
+    int watchedMovies = 0;
+    int currentEndTime = 0;
+
+    // Iterate through sorted movies and count the ones that can be watched
+    for (const auto& movie : movies) {
+        int end = movie.first;
+        int start = movie.second;
+
+        if (start >= currentEndTime) {
+            watchedMovies++;
+            currentEndTime = end;
+        }
+    }
+
+    cout << watchedMovies << endl;
+
+    return 0;
+}

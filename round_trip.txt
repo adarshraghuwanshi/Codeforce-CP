@@ -1,0 +1,49 @@
+#include<bits/stdc++.h>
+using namespace std;
+bool dfs(unordered_map<int, vector<int>> &adj, vector<int> &visited, int u, int start,vector<int> &parent){
+    visited[u] = true;
+    for (int v : adj[u]) {
+        if (!visited[v]) {
+            parent[v] = u;
+            if (dfs(adj, visited,v, start, parent)) {
+                return true;
+            }
+        } else if (v != parent[u] && v == start) {
+            return true;
+        }
+    }
+    return false;
+
+}
+int main(){
+    int n,m; cin>>n>>m;
+unordered_map<int, vector<int>> adj;
+for(int i=0; i<m; i++){
+int a,b; cin>>a>>b;
+adj[a].push_back(b);
+adj[b].push_back(a);
+}
+vector<int> visited(n+1,0);
+vector<int> parent(n+1, -1);
+ for (int i = 1; i <= n; i++) {
+        if (!visited[i] && dfs(adj, visited, i, i, parent)) {
+            vector<int> route;
+            int current = i;
+            do {
+                route.push_back(current);
+                current = parent[current];
+            } while (current != i);
+
+            cout << route.size() << endl;
+            for (int j = route.size() - 1; j >= 0; j--) {
+                cout << route[j] << " ";
+            }
+
+            return 0;
+        }
+    }
+
+    cout << "IMPOSSIBLE" << endl;
+
+    return 0;
+}

@@ -1,0 +1,51 @@
+#include<bits/stdc++.h>
+using namespace std;
+const long long MOD=1000000007;
+long long total_ways(vector<int> &a, int n, int m, int index, vector<vector<int>> &dp){
+if(index>=n) return 1;
+if(
+long long ans=0;
+if(a[index]!=0){
+if(a[index]<=m && a[index]>0 && abs(a[index]-a[index-1])<=1) ans+=total_ways(a, n,m,index+1);
+else ans=0; 
+}
+else{
+for(int i=a[index-1]-1; i<=a[index-1]+1; i++){
+a[index]=i;
+if(i>0 && i<=m) ans+=total_ways(a,n,m,index+1);
+a[index]=0;
+}
+}
+
+return ans;
+}
+long long total_ways_rev(vector<int> &a, int n, int m, int index){
+if(index<0) return 1;
+long long ans=0;
+if(a[index]!=0){
+if(a[index]<=m && a[index]>0 && abs(a[index]-a[index+1])<=1) ans+=total_ways_rev(a, n,m,index-1);
+else ans=0; 
+}
+else{
+for(int i=a[index+1]-1; i<=a[index+1]+1; i++){
+a[index]=i;
+if(i>0 && i<=m) ans+=total_ways_rev(a,n,m,index-1);
+a[index]=0;
+}
+}
+
+return ans;
+}
+int main(){
+    int n,m;
+cin>>n>>m;
+vector<int> a(n);
+for(int i=0; i<n; i++) cin>>a[i];
+int index=0;
+
+vector<vector<int>> dp(n+1, vector<int>(m+1,-1));
+while(a[index]==0) index++;
+int ans1=total_ways(a,n,m,index+1,dp)%MOD;
+int ans2=total_ways_rev(a,n,m,index-1,dp)%MOD;
+cout<<(ans1*ans2)%MOD;
+}

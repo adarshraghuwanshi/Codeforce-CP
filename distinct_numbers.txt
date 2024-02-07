@@ -1,0 +1,17 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n;
+cin>>n;
+set<int>vis;
+
+while(n--){
+int a;
+cin>>a;
+vis.insert(a);
+
+
+}
+cout<<vis.size();
+}

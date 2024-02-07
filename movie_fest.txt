@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+long maxWatch(vector<pair<long, long>> &timing, long index, long endTime, vector<vector<long>> &dp) {
+    if (index == timing.size())
+        return 0;
+    if (dp[index][endTime] != -1)
+        return dp[index][endTime];
+    long ans1 = maxWatch(timing, index + 1, endTime, dp);
+    long ans2 = 0;
+    if (endTime <= timing[index].first)
+        ans2 = 1 + maxWatch(timing, index + 1, timing[index].second, dp);
+    return dp[index][endTime] = max(ans1, ans2);
+}
+
+int main() {
+    int n;
+    cin >> n;
+    vector<pair<long, long>> timing;
+    for (int i = 0; i < n; i++) {
+        int a, b;
+        cin >> a >> b;
+        timing.push_back({a, b});
+    }
+    sort(timing.begin(), timing.end());
+
+    // Find the maximum end time to dynamically initialize the vector
+    long maxEndTime = 0;
+    for (auto &t : timing) {
+        maxEndTime = max(maxEndTime, t.second);
+    }
+
+    vector<vector<long>> dp(n, vector<long>(maxEndTime + 1, -1));
+    long ans = maxWatch(timing, 0, 0, dp);
+    cout << ans;
+    return 0;
+}

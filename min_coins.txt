@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+const int INF = 1e9 + 7;
+
+int minCoins(int x, vector<int>& coins, vector<int>& dp) {
+    if (x == 0) return 0;
+    if (dp[x] != -1) return dp[x];
+
+    int result = INF;
+    for (int coin : coins) {
+        if (x - coin >= 0) {
+            result = min(result, 1 + minCoins(x - coin, coins, dp));
+        }
+    }
+
+    return dp[x] = result;
+}
+
+int main() {
+    int n, x;
+    cin >> n >> x;
+
+    vector<int> coins(n);
+    for (int i = 0; i < n; i++) {
+        cin >> coins[i];
+    }
+
+    vector<int> dp(x + 1, -1);
+    int ans = minCoins(x, coins, dp);
+
+    if (ans == INF) {
+        cout << "-1\n";
+    } else {
+        cout << ans << "\n";
+    }
+
+    return 0;
+}

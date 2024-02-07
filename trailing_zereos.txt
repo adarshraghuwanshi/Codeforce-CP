@@ -1,0 +1,14 @@
+#include<iostream>
+using namespace std;
+
+int main(){
+int n;
+cin>>n;
+
+long long ans=0;
+int d=5;
+while(n/d>0){
+ans+=n/d;
+d*=5;}
+cout<<ans;
+}

@@ -1,0 +1,20 @@
+#include<bits/stdc++.h>
+using namespace std;
+const int MOD=1000000007;
+long total_ways(int sum,  vector<long> &dp){
+if(sum==0) return 1;
+if(dp[sum]!=-1) return dp[sum];
+long ans=0;
+for(int i=1; i<=6; i++){
+if(sum>=i) ans+=total_ways(sum-i, dp)%MOD;
+}
+return dp[sum]=ans%MOD;
+}
+
+int main(){
+    int n; cin>>n;
+
+vector<long> dp(n+1,-1);
+cout<<total_ways(n, dp)%MOD;
+return 0;
+}

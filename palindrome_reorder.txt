@@ -1,0 +1,62 @@
+#include<bits/stdc++.h>
+using namespace std;
+string palindrome_reorder(string &s){
+int n=s.size();
+unordered_map <char,int> count;
+for(int i=0; i<n; i++){
+count[s[i]]++;
+}
+
+if(n%2==0){
+int i=0;
+for(auto it: count){
+if(it.second%2==1) return "";
+while(it.second>0){
+s[i]=it.first;
+s[n-i-1]=it.first;
+it.second-=2;
+i++;}
+
+}
+
+}
+else{
+int odd=1;
+char odd_ch;
+
+int i=0;
+for(auto it: count){
+
+if(it.second%2==1) { if(odd==0) return "";
+else {odd--;
+odd_ch=it.first;
+it.second--;}}
+while(it.second>0){
+s[i]=it.first;
+s[n-i-1]=it.first;
+it.second-=2;
+i++;}
+
+}
+s[i]=odd_ch;
+}
+return s;
+}
+
+
+int main(){
+string s;
+cin>>s;
+
+string result= palindrome_reorder(s);
+
+if (result.empty()) {
+        cout << "NO SOLUTION";
+    } else {
+        cout << result;
+    }
+
+    return 0;
+
+
+}

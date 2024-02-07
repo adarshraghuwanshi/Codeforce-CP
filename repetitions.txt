@@ -1,0 +1,15 @@
+#include <bits/stdc++.h> 
+using namespace std;
+
+int main(){
+string s;
+cin>>s;
+int maxi=0;
+int l=1;
+for(long i=0; i<s.size(); i++){
+if(i==s.size() || s[i]!=s[i+1]) l=1;
+else l++;
+if(l>maxi) maxi=l;
+}
+cout<<maxi;
+}

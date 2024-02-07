@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+void solve(unordered_map<int,vector<int>> &mpp, vector<int> &vis, int curr){
+vis[curr]=1;
+
+for(auto it: mpp[curr]){
+if(vis[it]==0) solve(mpp,vis,it);
+}
+}
+int main(){
+    int n, m; cin>>n>>m;
+unordered_map<int,vector<int>> mpp;
+for(int i=0; i<m; i++){
+int a,b; cin>>a>>b;
+mpp[a].push_back(b);
+mpp[b].push_back(a);
+}
+vector<int> vis(n+1,0);
+vector<int> ans;
+for(int i=1; i<=n; i++){
+if(vis[i]==0){
+ans.push_back(i);
+solve(mpp,vis,i);
+}
+}
+cout<<ans.size()-1<<endl;
+
+for(int i=1; i<ans.size(); i++){
+cout<<ans[0]<<" "<<ans[i]<<endl;}
+
+return 0;
+}

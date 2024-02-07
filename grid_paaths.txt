@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+const int MOD=1000000007;
+int solve(vector<vector<char>> &grid, vector<vector<int>> &dp, int i, int j, int n){
+if(i==n-1 && j==n-1) return 1;
+if(i>n-1) return 0;
+if(j>n-1) return 0;
+if(dp[i][j]!=-1) return dp[i][j];
+int ans=0;
+if(i+1<n &&grid[i+1][j]=='.') ans+=solve(grid,dp,i+1,j,n)%MOD;
+if(j+1<n&&grid[i][j+1]=='.') ans+=solve(grid,dp,i,j+1,n)%MOD;
+return dp[i][j]=ans%MOD;
+}
+
+int main(){
+    int n; cin>>n;
+vector<vector<char>> grid(n, vector<char>(n));
+for(int i=0; i<n; i++){
+for(int j=0; j<n; j++){
+cin>>grid[i][j];}}
+
+if(grid[0][0]=='*'||grid[n-1][n-1]=='*'){
+cout<<"0";
+return 0;}
+vector<vector<int>> dp(n, vector<int>(n,-1));
+cout<<solve(grid, dp, 0,0, n)%MOD;
+
+}

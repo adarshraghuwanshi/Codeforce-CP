@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n, m; cin>>n>>m;
+unordered_map<int,vector<int>> mpp;
+for(int i=0; i<m; i++){
+int a,b; cin>>a>>b;
+mpp[a].push_back(b);
+mpp[b].push_back(a);
+}
+unordered_map<int, int>prev;
+vector<int>vis(n+1,0);
+queue<pair<int,int>> q;
+q.push({1,0});
+vis[1]=1;
+
+while(!q.empty()){
+
+if(q.front().first==n) break;
+pair<int,int>p=q.front();
+q.pop();
+int node=p.first;
+int cnt=p.second;
+
+for(auto it: mpp[node]){
+if(vis[it]==0){
+q.push({it,cnt+1});
+vis[it]=1;
+prev[it]=node;
+}
+
+}
+
+}
+
+
+if(q.empty()){
+cout<<"IMPOSSIBLE";
+return 0;}
+cout<<q.front().second+1<<endl;
+vector<int> ans;
+
+int k=n;
+while(k!=1){
+ans.push_back(k);
+k=prev[k];
+}
+ans.push_back(1);
+for(int i=ans.size()-1; i>=0; i--) cout<<ans[i]<<" ";
+return 0;
+}

@@ -1,0 +1,41 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <climits>
+
+using namespace std;
+
+struct Edge {
+    int to, weight;
+};
+
+int main() {
+    int n, m, q;
+    cin >> n >> m >> q;
+
+vector<vector<long long>> mat(n+1,vector<long long>(n+1,1e15));
+for(int i=1;i<=n; i++) mat[i][i]=0;
+   for(int i=0; i<m; i++){
+int a,b,x; cin>>a>>b>>x;
+if(mat[a][b]>x)
+mat[a][b]=x;
+if(mat[b][a]>x)
+mat[b][a]=x;
+}
+
+for(int k=1; k<=n; k++){
+for(int i=1; i<=n; i++){
+for(int j=1; j<=n; j++){
+
+
+mat[i][j]=min(mat[i][j],mat[i][k]+mat[k][j]);
+}}
+}
+for(int i=0; i<q; i++){
+int a,b; cin>>a>>b;
+if(mat[a][b]>=1e15) cout<<"-1"<<endl;
+else
+cout<<mat[a][b]<<endl;
+}
+    return 0;
+}

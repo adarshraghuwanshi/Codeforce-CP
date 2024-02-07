@@ -1,0 +1,31 @@
+#include <bits/stdc++.h> 
+usinng namespace std;
+int main(){
+    int d, sumTime;
+    cin>>d >> sumTIme;
+    vector<int> minTime;
+vector<int> maxTime;
+
+for(int i=0; i<d; i++){
+int a, b;
+cin>>a>>b;
+minTime>push_back(a);
+maxTime>push_back(b);
+}
+
+int maxSum=0, minSum=0;
+for(int i=0; i<d; i++){
+minSum+=minTIme[i];
+maxSum+=maxTIme[i];
+}
+
+if(maxTime<sumTime|| minTIme>sumTime) cout<<"NO";
+else{
+cout<<"YES"<<endl;
+
+
+
+}
+
+
+}
